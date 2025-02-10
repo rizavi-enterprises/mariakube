@@ -1,0 +1,1 @@
+This is a Flask-based web application that provides user authentication (login/signup) and a dashboard with navigation to manage CRM Contacts, Parents, Children, Teachers, and Classrooms. The app is Dockerized for easy deployment and consistent environments.
