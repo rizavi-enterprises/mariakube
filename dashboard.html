@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-container">
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>What would you like to manage today?</p>
+    <div class="button-grid">
+        <a href="{{ url_for('crm_contacts') }}" class="dashboard-button">CRM Contacts</a>
+        <a href="{{ url_for('parents') }}" class="dashboard-button">Parents</a>
+        <a href="{{ url_for('children') }}" class="dashboard-button">Children</a>
+        <a href="{{ url_for('teachers') }}" class="dashboard-button">Teachers</a>
+        <a href="{{ url_for('classrooms') }}" class="dashboard-button">Classrooms</a>
+    </div>
+</div>
+{% endblock %}

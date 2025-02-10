@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>CRM Contacts</h1>
+<p>This is the CRM Contacts page. More content coming soon!</p>
+<a href="{{ url_for('dashboard') }}" class="dashboard-button">Back to Dashboard</a>
+
+
+<h1>Welcome, {{ user.username }}!</h1>
+<p>This are the CRM contacts.</p>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
