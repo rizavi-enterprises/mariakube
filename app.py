@@ -5,10 +5,10 @@ from models import db, User  # Import from models.py
 import mysql.connector
 
 db_config = {
-    'host': 'localhost',
-    'user': 'arthur',
-    'password' : 'password',
-    'database': 'mariacare'  
+    'host': '',
+    'user': '',
+    'password' : '',
+    'database': ''  
 }
 
 app = Flask(__name__)
@@ -108,4 +108,4 @@ def classrooms():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # Create database tables
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)
