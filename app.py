@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from models import db, User  # Import from models.py
+from models import db, User
 import mysql.connector
 import credentials
 
@@ -154,5 +154,5 @@ def medication_log():
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()  # Create database tables
+        db.create_all()
     app.run(host=credentials.h, port=credentials.p)
