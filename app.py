@@ -106,43 +106,43 @@ def classrooms():
 
 @app.route('/tour_calendar')
 @login_required
-def classrooms():
+def tour_calendar():
     return render_template('tour_calendar.html')
 
 
 @app.route('/first_contact_info')
 @login_required
-def classrooms():
+def first_contact_info():
     return render_template('first_contact_info.html')
 
 @app.route('/enrollment_log')
 @login_required
-def classrooms():
+def enrollment_log():
     return render_template('enrollment_log.html')
 
 @app.route('/invoicing')
 @login_required
-def classrooms():
+def invoicing():
     return render_template('invoicing.html')
 
 @app.route('/daily_sheets')
 @login_required
-def classrooms():
+def daily_sheets():
     return render_template('daily_sheets.html')
     
 @app.route('/incident_reports')
 @login_required
-def classrooms():
+def incident_reports():
     return render_template('incident_reports.html')
 
 @app.route('/behavior_notes')
 @login_required
-def classrooms():
+def behavior_notes():
     return render_template('behavior_notes.html')
 
 @app.route('/medication_log')
 @login_required
-def classrooms():
+def medication_log():
     return render_template('medication_log.html')
 
 
