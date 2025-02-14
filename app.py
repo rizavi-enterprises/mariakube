@@ -12,6 +12,7 @@ db_config = {
 }
 
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = '37THc0MDHugi7DMsHOxPEPShgD6RrjVFokIpHUwxQDq9gEcsr9u6i0CeKDf2iaba'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -25,11 +26,9 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
 @app.route('/')
 def home():
     return render_template('home.html')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -44,7 +43,6 @@ def login():
         else:
             flash('Invalid username or password', 'danger')
     return render_template('login.html')
-
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -61,12 +59,10 @@ def signup():
         return redirect(url_for('login'))
     return render_template('signup.html')
 
-
 @app.route('/dashboard')
 @login_required
 def dashboard():
     return render_template('dashboard.html', user=current_user)
-
 
 @app.route('/logout')
 @login_required
@@ -74,19 +70,41 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-
-@app.route('/crm-contacts')
-@login_required
-def crm_contacts():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM contacts')
-    data = cursor.fetchall()
-    return render_template('crm_contacts.html', data=data, user=current_user)
-
 @app.route('/parents')
 @login_required
 def parents():
+    # Fetch contacts from the database
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM parents')
+    parents = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('parents.html', parents=parents)
+
+# Route to Handle Form Submission
+@app.route('/add_contact', methods=['POST'])
+def add_parent():
+    # Get form data
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    email = request.form['email']
+    phone = request.form['phone']
+
+    # Insert new contact into the database
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO parents (first_name, last_name, email, phone)
+        VALUES (%s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, email, phone))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    # Redirect back to the parents page
+    return redirect(url_for('parents'))
     return render_template('parents.html')
 
 @app.route('/children')
