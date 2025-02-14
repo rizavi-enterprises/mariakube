@@ -39,11 +39,11 @@
     <tbody>
       {% for parent in parents %}
         <tr>
-          <td>{{ parent.id }}</td>
-          <td>{{ parent.first_name }}</td>
-          <td>{{ parent.last_name }}</td>
-          <td>{{ parent.email }}</td>
-          <td>{{ parent.phone }}</td>
+          <td>{{ parent[0] }}</td>  <!-- ID -->
+          <td>{{ parent[1] }}</td>  <!-- First Name -->
+          <td>{{ parent[2] }}</td>  <!-- Last Name -->
+          <td>{{ parent[3] }}</td>  <!-- Email -->
+          <td>{{ parent[4] }}</td>  <!-- Phone -->
         </tr>
       {% endfor %}
     </tbody>
