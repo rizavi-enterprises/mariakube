@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from models import db, User  # Import from models.py
 import mysql.connector
+import credentials
 
 db_config = {
     'host': '',
@@ -74,7 +75,7 @@ def logout():
 @login_required
 def parents():
     # Fetch contacts from the database
-    conn = mariadb.connect(**db_config)
+    conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM parents')
     parents = cursor.fetchall()
@@ -92,7 +93,7 @@ def add_parent():
     phone = request.form['phone']
 
     # Insert new contact into the database
-    conn = mariadb.connect(**db_config)
+    conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
         INSERT INTO parents (first_name, last_name, email, phone)
