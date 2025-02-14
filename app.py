@@ -107,18 +107,18 @@ def classrooms():
 @app.route('/tour_calendar')
 @login_required
 def classrooms():
-    return render_template('classrooms.html')
+    return render_template('tour_calendar.html')
 
 
 @app.route('/first_contact_info')
 @login_required
 def classrooms():
-    return render_template('classrooms.html')
+    return render_template('first_contact_info.html')
 
 @app.route('/enrollment_log')
 @login_required
 def classrooms():
-    return render_template('classrooms.html')
+    return render_template('enrollment_log.html')
 
 @app.route('/invoicing')
 @login_required
