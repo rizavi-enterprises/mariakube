@@ -123,27 +123,27 @@ def classrooms():
 @app.route('/invoicing')
 @login_required
 def classrooms():
-    return render_template('classrooms.html')
+    return render_template('invoicing.html')
 
 @app.route('/daily_sheets')
 @login_required
 def classrooms():
-    return render_template('classrooms.html')
+    return render_template('daily_sheets.html')
     
 @app.route('/incident_reports')
 @login_required
 def classrooms():
-    return render_template('classrooms.html')
+    return render_template('incident_reports.html')
 
 @app.route('/behavior_notes')
 @login_required
 def classrooms():
-    return render_template('classrooms.html')
+    return render_template('behavior_notes.html')
 
 @app.route('/medication_log')
 @login_required
 def classrooms():
-    return render_template('classrooms.html')
+    return render_template('medication_log.html')
 
 
 if __name__ == '__main__':
