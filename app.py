@@ -74,8 +74,8 @@ def logout():
 @login_required
 def parents():
     # Fetch contacts from the database
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
+    conn = mariadb.connect(**db_config)
+    cursor = conn.cursor()
     cursor.execute('SELECT * FROM parents')
     parents = cursor.fetchall()
     cursor.close()
@@ -92,7 +92,7 @@ def add_parent():
     phone = request.form['phone']
 
     # Insert new contact into the database
-    conn = get_db_connection()
+    conn = mariadb.connect(**db_config)
     cursor = conn.cursor()
     query = '''
         INSERT INTO parents (first_name, last_name, email, phone)
