@@ -5,18 +5,17 @@ from models import db, User  # Import from models.py
 import mysql.connector
 import credentials
 
-db_config = credentials.dbconf
 
 app = Flask(__name__)
-
+db_config = credentials.dbconf
 app.config['SECRET_KEY'] = '37THc0MDHugi7DMsHOxPEPShgD6RrjVFokIpHUwxQDq9gEcsr9u6i0CeKDf2iaba'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 db.init_app(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -69,7 +68,6 @@ def logout():
 @app.route('/parents')
 @login_required
 def parents():
-    # Fetch contacts from the database
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM parents')
@@ -78,16 +76,13 @@ def parents():
     conn.close()
     return render_template('parents.html', parents=parents)
 
-# Route to Handle Form Submission
-@app.route('/add_contact', methods=['POST'])
+@app.route('/add_parent', methods=['POST'])
 def add_parent():
-    # Get form data
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     email = request.form['email']
     phone = request.form['phone']
 
-    # Insert new contact into the database
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
@@ -99,7 +94,6 @@ def add_parent():
     cursor.close()
     conn.close()
 
-    # Redirect back to the parents page
     return redirect(url_for('parents'))
     return render_template('parents.html')
 
@@ -122,7 +116,6 @@ def classrooms():
 @login_required
 def tour_calendar():
     return render_template('tour_calendar.html')
-
 
 @app.route('/first_contact_info')
 @login_required
@@ -158,7 +151,6 @@ def behavior_notes():
 @login_required
 def medication_log():
     return render_template('medication_log.html')
-
 
 if __name__ == '__main__':
     with app.app_context():
