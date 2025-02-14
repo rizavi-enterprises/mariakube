@@ -5,12 +5,7 @@ from models import db, User  # Import from models.py
 import mysql.connector
 import credentials
 
-db_config = {
-    'host': '',
-    'user': '',
-    'password' : '',
-    'database': ''  
-}
+db_config = credentials.dbconf
 
 app = Flask(__name__)
 
@@ -168,4 +163,4 @@ def medication_log():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # Create database tables
-    app.run(debug=True)
+    app.run(host=credentials.h, port=credentials.p)
