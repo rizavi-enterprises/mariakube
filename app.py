@@ -104,6 +104,47 @@ def teachers():
 def classrooms():
     return render_template('classrooms.html')
 
+@app.route('/tour_calendar')
+@login_required
+def classrooms():
+    return render_template('classrooms.html')
+
+
+@app.route('/first_contact_info')
+@login_required
+def classrooms():
+    return render_template('classrooms.html')
+
+@app.route('/enrollment_log')
+@login_required
+def classrooms():
+    return render_template('classrooms.html')
+
+@app.route('/invoicing')
+@login_required
+def classrooms():
+    return render_template('classrooms.html')
+
+@app.route('/daily_sheets')
+@login_required
+def classrooms():
+    return render_template('classrooms.html')
+    
+@app.route('/incident_reports')
+@login_required
+def classrooms():
+    return render_template('classrooms.html')
+
+@app.route('/behavior_notes')
+@login_required
+def classrooms():
+    return render_template('classrooms.html')
+
+@app.route('/medication_log')
+@login_required
+def classrooms():
+    return render_template('classrooms.html')
+
 
 if __name__ == '__main__':
     with app.app_context():
