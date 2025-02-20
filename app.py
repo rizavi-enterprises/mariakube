@@ -108,6 +108,29 @@ def children():
     conn.close()
     return render_template('children.html', children=children)
 
+@app.route('/add_children', methods=['POST'])
+def add_children():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('children'))
+    return render_template('children.html')
+
+
 @app.route('/teachers')
 @login_required
 def teachers():
@@ -118,6 +141,28 @@ def teachers():
     cursor.close()
     conn.close()
     return render_template('teachers.html', teachers=teachers)
+
+@app.route('/add_children', methods=['POST'])
+def add_children():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('children'))
+    return render_template('children.html')
 
 @app.route('/classrooms')
 @login_required
@@ -130,6 +175,28 @@ def classrooms():
     conn.close()
     return render_template('classrooms.html', classrooms=classrooms)
 
+@app.route('/add_children', methods=['POST'])
+def add_children():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('children'))
+    return render_template('children.html')
+
 @app.route('/tour_calendar')
 @login_required
 def tour_calendar():
@@ -140,6 +207,28 @@ def tour_calendar():
     cursor.close()
     conn.close()
     return render_template('tour_calendar.html', tour_calendar=tour_calendar)
+
+@app.route('/add_children', methods=['POST'])
+def add_children():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('children'))
+    return render_template('children.html')
 
 @app.route('/first_contact_info')
 @login_required
@@ -152,6 +241,28 @@ def first_contact_info():
     conn.close()
     return render_template('first_contact_info.html', first_contact_info=first_contact_info)
 
+@app.route('/add_children', methods=['POST'])
+def add_children():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('children'))
+    return render_template('children.html')
+
 @app.route('/enrollment_log')
 @login_required
 def enrollment_log():
@@ -162,6 +273,28 @@ def enrollment_log():
     cursor.close()
     conn.close()
     return render_template('enrollment_log.html', enrollment_log=enrollment_log)
+
+@app.route('/add_children', methods=['POST'])
+def add_children():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('children'))
+    return render_template('children.html')
 
 @app.route('/invoicing')
 @login_required
@@ -174,6 +307,28 @@ def invoicing():
     conn.close()
     return render_template('invoicing.html', invoicing=invoicing)
 
+@app.route('/add_children', methods=['POST'])
+def add_children():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('children'))
+    return render_template('children.html')
+
 @app.route('/daily_sheets')
 @login_required
 def daily_sheets():
@@ -184,7 +339,29 @@ def daily_sheets():
     cursor.close()
     conn.close()
     return render_template('daily_sheets.html', daily_sheets=daily_sheets)
-    
+
+@app.route('/add_children', methods=['POST'])
+def add_children():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('children'))
+    return render_template('children.html')
+
 @app.route('/incident_reports')
 @login_required
 def incident_reports():
@@ -195,6 +372,28 @@ def incident_reports():
     cursor.close()
     conn.close()
     return render_template('incident_reports.html', incident_reports=incident_reports)
+
+@app.route('/add_children', methods=['POST'])
+def add_children():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('children'))
+    return render_template('children.html')
 
 @app.route('/behavior_notes')
 @login_required
