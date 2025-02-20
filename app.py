@@ -129,8 +129,7 @@ def add_children():
 
     return redirect(url_for('children'))
     return render_template('children.html')
-
-
+    
 @app.route('/teachers')
 @login_required
 def teachers():
@@ -272,8 +271,8 @@ def enrollment_log():
     conn.close()
     return render_template('enrollment_log.html', enrollment_log=enrollment_log)
 
-@app.route('/add_children', methods=['POST'])
-def add_children():
+@app.route('/add_enrollment_log', methods=['POST'])
+def add_enrollment_log():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     birthdate = request.form['birthdate']
@@ -305,8 +304,8 @@ def invoicing():
     conn.close()
     return render_template('invoicing.html', invoicing=invoicing)
 
-@app.route('/add_children', methods=['POST'])
-def add_children():
+@app.route('/add_invcoicing', methods=['POST'])
+def add_add_invoicing():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     birthdate = request.form['birthdate']
@@ -338,8 +337,8 @@ def daily_sheets():
     conn.close()
     return render_template('daily_sheets.html', daily_sheets=daily_sheets)
 
-@app.route('/add_children', methods=['POST'])
-def add_children():
+@app.route('/add_daily_sheets', methods=['POST'])
+def add_daily_sheets():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     birthdate = request.form['birthdate']
@@ -349,7 +348,7 @@ def add_children():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
-        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        INSERT INTO daily_sheets (first_name, last_name, birthdate, parent_id, classroom_id)
         VALUES (%s, %s, %s, %s, %s)
     '''
     cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
@@ -371,8 +370,8 @@ def incident_reports():
     conn.close()
     return render_template('incident_reports.html', incident_reports=incident_reports)
 
-@app.route('/add_children', methods=['POST'])
-def add_children():
+@app.route('/add_incident reports', methods=['POST'])
+def add_incident_reports():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     birthdate = request.form['birthdate']
@@ -382,7 +381,7 @@ def add_children():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
-        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        INSERT INTO incident_reports (first_name, last_name, birthdate, parent_id, classroom_id)
         VALUES (%s, %s, %s, %s, %s)
     '''
     cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
@@ -390,8 +389,8 @@ def add_children():
     cursor.close()
     conn.close()
 
-    return redirect(url_for('children'))
-    return render_template('children.html')
+    return redirect(url_for('incident_reports'))
+    return render_template('incident_reports.html')
 
 @app.route('/behavior_notes')
 @login_required
@@ -404,6 +403,29 @@ def behavior_notes():
     conn.close()
     return render_template('behavior_notes.html', behavior_notes=behavior_notes)
 
+@app.route('/add_behavior_notes', methods=['POST'])
+def add_incident_reports():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO incident_reports (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('incident_reports'))
+    return render_template('incident_reports.html')
+
+
 @app.route('/medication_log')
 @login_required
 def medication_log():
@@ -414,6 +436,29 @@ def medication_log():
     cursor.close()
     conn.close()
     return render_template('medication_log.html', medication_log=medication_log)
+
+@app.route('/add_medication_log', methods=['POST'])
+def add_incident_reports():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birthdate = request.form['birthdate']
+    parent_id = request.form['parent_id']
+    classroom_id = request.form['classroom_id']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    query = '''
+        INSERT INTO incident_reports (first_name, last_name, birthdate, parent_id, classroom_id)
+        VALUES (%s, %s, %s, %s, %s)
+    '''
+    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('incident_reports'))
+    return render_template('incident_reports.html')
+
 
 if __name__ == '__main__':
     with app.app_context():
