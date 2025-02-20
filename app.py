@@ -100,22 +100,46 @@ def add_parent():
 @app.route('/children')
 @login_required
 def children():
-    return render_template('children.html')
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM children')
+    children = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('children.html', children=children)
 
 @app.route('/teachers')
 @login_required
 def teachers():
-    return render_template('teachers.html')
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM teachers')
+    teachers = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('teachers.html', teachers=teachers)
 
 @app.route('/classrooms')
 @login_required
 def classrooms():
-    return render_template('classrooms.html')
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM classrooms')
+    classrooms = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('classrooms.html', classrooms=classrooms)
 
 @app.route('/tour_calendar')
 @login_required
 def tour_calendar():
-    return render_template('tour_calendar.html')
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM classrooms')
+    classrooms = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('classrooms.html', classrooms=classrooms)
 
 @app.route('/first_contact_info')
 @login_required
