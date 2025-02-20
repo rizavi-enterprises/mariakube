@@ -152,7 +152,7 @@ def add_teachers():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
-        INSERT INTO children (first_name, last_name, email, phone, subject)
+        INSERT INTO teachers (first_name, last_name, email, phone, subject)
         VALUES (%s, %s, %s, %s, %s)
     '''
     cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
@@ -160,8 +160,8 @@ def add_teachers():
     cursor.close()
     conn.close()
 
-    return redirect(url_for('children'))
-    return render_template('children.html')
+    return redirect(url_for('teachers'))
+    return render_template('teachers.html')
 
 @app.route('/classrooms')
 @login_required
@@ -186,13 +186,13 @@ def add_classrooms():
         INSERT INTO classrooms (name, teacher_id, capacity)
         VALUES (%s, %s, %s)
     '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
+    cursor.execute(query, (name, teacher_id, capacity))
     conn.commit()
     cursor.close()
     conn.close()
 
-    return redirect(url_for('children'))
-    return render_template('children.html')
+    return redirect(url_for('classrooms'))
+    return render_template('classrooms.html')
 
 @app.route('/tour_calendar')
 @login_required
@@ -205,18 +205,17 @@ def tour_calendar():
     conn.close()
     return render_template('tour_calendar.html', tour_calendar=tour_calendar)
 
-@app.route('/add_children', methods=['POST'])
+@app.route('/add_tour_calendar', methods=['POST'])
 def add_tour_calendar():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
+    tour_date = request.form['tour_date']
+    tour_time = request.form['tour_time']
     parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
+    notes = request.form['notes']
 
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
-        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        INSERT INTO tour_calendar (first_name, last_name, birthdate, parent_id, classroom_id)
         VALUES (%s, %s, %s, %s, %s)
     '''
     cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
