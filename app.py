@@ -142,18 +142,18 @@ def teachers():
     conn.close()
     return render_template('teachers.html', teachers=teachers)
 
-@app.route('/add_children', methods=['POST'])
-def add_children():
+@app.route('/add_teachers', methods=['POST'])
+def add_teachers():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
+    email = request.form['email']
+    phone = request.form['phone']
+    subject = request.form['subject']
 
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
-        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        INSERT INTO children (first_name, last_name, email, phone, subject)
         VALUES (%s, %s, %s, %s, %s)
     '''
     cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
@@ -175,19 +175,17 @@ def classrooms():
     conn.close()
     return render_template('classrooms.html', classrooms=classrooms)
 
-@app.route('/add_children', methods=['POST'])
-def add_children():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
+@app.route('/add_classrooms', methods=['POST'])
+def add_classrooms():
+    name = request.form['first_name']
+    teacher_id = request.form['last_name']
+    capacity = request.form['birthdate']
 
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
-        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO classrooms (name, teacher_id, capacity)
+        VALUES (%s, %s, %s)
     '''
     cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
     conn.commit()
@@ -209,7 +207,7 @@ def tour_calendar():
     return render_template('tour_calendar.html', tour_calendar=tour_calendar)
 
 @app.route('/add_children', methods=['POST'])
-def add_children():
+def add_tour_calendar():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     birthdate = request.form['birthdate']
@@ -241,8 +239,8 @@ def first_contact_info():
     conn.close()
     return render_template('first_contact_info.html', first_contact_info=first_contact_info)
 
-@app.route('/add_children', methods=['POST'])
-def add_children():
+@app.route('/add_first_contact_info', methods=['POST'])
+def add_first_contact_info():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     birthdate = request.form['birthdate']
