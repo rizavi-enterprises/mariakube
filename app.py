@@ -135,66 +135,66 @@ def classrooms():
 def tour_calendar():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM classrooms')
-    classrooms = cursor.fetchall()
+    cursor.execute('SELECT * FROM tour_calendar')
+    tour_calendar = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('classrooms.html', classrooms=classrooms)
+    return render_template('tour_calendar.html', tour_calendar=tour_calendar)
 
 @app.route('/first_contact_info')
 @login_required
 def first_contact_info():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM classrooms')
-    classrooms = cursor.fetchall()
+    cursor.execute('SELECT * FROM first_contact_info')
+    first_contact_info = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('classrooms.html', classrooms=classrooms)
+    return render_template('first_contact_info.html', first_contact_info=first_contact_info)
 
 @app.route('/enrollment_log')
 @login_required
 def enrollment_log():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM classrooms')
-    classrooms = cursor.fetchall()
+    cursor.execute('SELECT * FROM enrollment_log')
+    enrollment_log = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('classrooms.html', classrooms=classrooms)
+    return render_template('enrollment_log.html', enrollment_log=enrollment_log)
 
 @app.route('/invoicing')
 @login_required
 def invoicing():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM classrooms')
-    classrooms = cursor.fetchall()
+    cursor.execute('SELECT * FROM invoicing')
+    invoicing = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('classrooms.html', classrooms=classrooms)
+    return render_template('invoicing.html', invoicing=invoicing)
 
 @app.route('/daily_sheets')
 @login_required
 def daily_sheets():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM classrooms')
-    classrooms = cursor.fetchall()
+    cursor.execute('SELECT * FROM daily_sheets')
+    daily_sheets = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('classrooms.html', classrooms=classrooms)
+    return render_template('daily_sheets.html', daily_sheets=daily_sheets)
     
 @app.route('/incident_reports')
 @login_required
 def incident_reports():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM classrooms')
-    classrooms = cursor.fetchall()
+    cursor.execute('SELECT * FROM incident_reports')
+    incident_reports = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('classrooms.html', classrooms=classrooms)
+    return render_template('incident_reports.html', incident_reports=incident_reports)
 
 @app.route('/behavior_notes')
 @login_required
@@ -202,10 +202,10 @@ def behavior_notes():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM classrooms')
-    classrooms = cursor.fetchall()
+    behavior_notes = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('classrooms.html', classrooms=classrooms)
+    return render_template('behavior_notes.html', behavior_notes=behavior_notes)
 
 @app.route('/medication_log')
 @login_required
