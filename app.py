@@ -54,10 +54,10 @@ def signup():
         return redirect(url_for('login'))
     return render_template('signup.html')
 
-@app.route('/dashboard')
+@app.route('/home')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', user=current_user)
+    return render_template('home.html', user=current_user)
 
 @app.route('/logout')
 @login_required
