@@ -223,8 +223,8 @@ def add_tour_calendar():
     cursor.close()
     conn.close()
 
-    return redirect(url_for('children'))
-    return render_template('children.html')
+    return redirect(url_for('tour_calendar'))
+    return render_template('tour_calendar.html')
 
 @app.route('/first_contact_info')
 @login_required
@@ -248,7 +248,7 @@ def add_first_contact_info():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
-        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        INSERT INTO first_contact_info (first_name, last_name, birthdate, parent_id, classroom_id)
         VALUES (%s, %s, %s, %s, %s)
     '''
     cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
@@ -256,8 +256,8 @@ def add_first_contact_info():
     cursor.close()
     conn.close()
 
-    return redirect(url_for('children'))
-    return render_template('children.html')
+    return redirect(url_for('first_contact_info'))
+    return render_template('first_contact_info.html')
 
 @app.route('/enrollment_log')
 @login_required
@@ -281,7 +281,7 @@ def add_enrollment_log():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
-        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        INSERT INTO  (first_name, last_name, birthdate, parent_id, classroom_id)
         VALUES (%s, %s, %s, %s, %s)
     '''
     cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
@@ -289,8 +289,8 @@ def add_enrollment_log():
     cursor.close()
     conn.close()
 
-    return redirect(url_for('children'))
-    return render_template('children.html')
+    return redirect(url_for('enrollment_log'))
+    return render_template('enrollment_log.html')
 
 @app.route('/invoicing')
 @login_required
@@ -314,7 +314,7 @@ def add_add_invoicing():
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     query = '''
-        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
+        INSERT INTO invoicing (first_name, last_name, birthdate, parent_id, classroom_id)
         VALUES (%s, %s, %s, %s, %s)
     '''
     cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
@@ -322,8 +322,8 @@ def add_add_invoicing():
     cursor.close()
     conn.close()
 
-    return redirect(url_for('children'))
-    return render_template('children.html')
+    return redirect(url_for('invoicing'))
+    return render_template('invoicing.html')
 
 @app.route('/daily_sheets')
 @login_required
@@ -355,8 +355,8 @@ def add_daily_sheets():
     cursor.close()
     conn.close()
 
-    return redirect(url_for('children'))
-    return render_template('children.html')
+    return redirect(url_for('daily_sheets'))
+    return render_template('daily_sheets.html')
 
 @app.route('/incident_reports')
 @login_required
@@ -457,7 +457,6 @@ def add_incident_reports():
 
     return redirect(url_for('incident_reports'))
     return render_template('incident_reports.html')
-
 
 if __name__ == '__main__':
     with app.app_context():
