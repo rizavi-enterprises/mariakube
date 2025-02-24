@@ -93,7 +93,7 @@ def reports():
 
     return render_template('reports.html', query=query, results=results, columns=columns)
 
-@app.route('/terminal', methods=['GET', 'POST'])
+@app.route('/workflows', methods=['GET', 'POST'])
 def terminal():
     output = ""
     command = ""
