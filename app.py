@@ -5,7 +5,6 @@ from models import db, User
 import mysql.connector
 import credentials
 
-
 app = Flask(__name__)
 db_config = credentials.dbconf
 app.config['SECRET_KEY'] = '37THc0MDHugi7DMsHOxPEPShgD6RrjVFokIpHUwxQDq9gEcsr9u6i0CeKDf2iaba'
@@ -16,14 +15,13 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 @app.route('/')
-def home():
-    return render_template('home.html')
+def landing():
+    return render_template('landing.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -34,7 +32,7 @@ def login():
 
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('home'))
         else:
             flash('Invalid username or password', 'danger')
     return render_template('login.html')
@@ -65,398 +63,97 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/parents')
-@login_required
-def parents():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM parents')
-    parents = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('parents.html', parents=parents)
+@app.route('/reports', methods=['GET', 'POST'])
+def reports():
+    results = None
+    query = ""
+    columns = []
 
-@app.route('/add_parent', methods=['POST'])
-def add_parent():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    email = request.form['email']
-    phone = request.form['phone']
+    if request.method == 'POST':
+        query = request.form.get('query', '').strip()
 
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO parents (first_name, last_name, email, phone)
-        VALUES (%s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, email, phone))
-    conn.commit()
-    cursor.close()
-    conn.close()
+        if query:
+            try:
+                # Connect to the database
+                conn = mysql.connector.connect(**db_config)
+                cursor = conn.cursor()
 
-    return redirect(url_for('parents'))
-    return render_template('parents.html')
+                # Execute the query
+                cursor.execute(query)
+                results = cursor.fetchall()
 
-@app.route('/children')
-@login_required
-def children():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM children')
-    children = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('children.html', children=children)
+                # Get column names
+                columns = [col[0] for col in cursor.description]
 
-@app.route('/add_children', methods=['POST'])
-def add_children():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
+                cursor.close()
+                conn.close()
 
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO children (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
+            except mysql.connector.Error as err:
+                flash(f'Error executing query: {err}', 'error')
 
-    return redirect(url_for('children'))
-    return render_template('children.html')
-    
-@app.route('/teachers')
-@login_required
-def teachers():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM teachers')
-    teachers = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('teachers.html', teachers=teachers)
+    return render_template('reports.html', query=query, results=results, columns=columns)
 
-@app.route('/add_teachers', methods=['POST'])
-def add_teachers():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    email = request.form['email']
-    phone = request.form['phone']
-    subject = request.form['subject']
+@app.route('/terminal', methods=['GET', 'POST'])
+def terminal():
+    output = ""
+    command = ""
 
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO teachers (first_name, last_name, email, phone, subject)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
+    if request.method == 'POST':
+        command = request.form.get('command', '').strip()
 
-    return redirect(url_for('teachers'))
-    return render_template('teachers.html')
+        if command:
+            try:
+                # Run the command in the terminal
+                result = subprocess.run(
+                    command,
+                    shell=True,
+                    capture_output=True,
+                    text=True
+                )
+                output = result.stdout or result.stderr
+            except Exception as err:
+                output = f"Error: {err}"
 
-@app.route('/classrooms')
-@login_required
-def classrooms():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM classrooms')
-    classrooms = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('classrooms.html', classrooms=classrooms)
+    return render_template('terminal.html', command=command, output=output)
 
-@app.route('/add_classrooms', methods=['POST'])
-def add_classrooms():
-    name = request.form['first_name']
-    teacher_id = request.form['last_name']
-    capacity = request.form['birthdate']
+DASHBOARDS_DIR = os.path.join(os.path.dirname(__file__), 'dashboards')
+os.makedirs(DASHBOARDS_DIR, exist_ok=True)  # Create directory if it doesn't exist
 
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO classrooms (name, teacher_id, capacity)
-        VALUES (%s, %s, %s)
-    '''
-    cursor.execute(query, (name, teacher_id, capacity))
-    conn.commit()
-    cursor.close()
-    conn.close()
+@app.route('/dashboards', methods=['GET', 'POST'])
+def dashboards():
+    if request.method == 'POST':
+        # Handle file creation
+        filename = request.form.get('filename', '').strip()
+        content = request.form.get('content', '').strip()
 
-    return redirect(url_for('classrooms'))
-    return render_template('classrooms.html')
+        if not filename:
+            flash('Filename is required.', 'error')
+        elif not filename.endswith('.html'):
+            flash('Filename must end with .html.', 'error')
+        else:
+            try:
+                # Save the new HTML file
+                filepath = os.path.join(DASHBOARDS_DIR, filename)
+                with open(filepath, 'w') as file:
+                    file.write(content)
+                flash(f'File "{filename}" created successfully!', 'success')
+            except Exception as err:
+                flash(f'Error creating file: {err}', 'error')
 
-@app.route('/tour_calendar')
-@login_required
-def tour_calendar():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM tour_calendar')
-    tour_calendar = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('tour_calendar.html', tour_calendar=tour_calendar)
+    # List all HTML files in the directory
+    files = [f for f in os.listdir(DASHBOARDS_DIR) if f.endswith('.html')]
+    return render_template('dashboards.html', files=files)
 
-@app.route('/add_tour_calendar', methods=['POST'])
-def add_tour_calendar():
-    tour_date = request.form['tour_date']
-    tour_time = request.form['tour_time']
-    parent_id = request.form['parent_id']
-    notes = request.form['notes']
-
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO tour_calendar (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    return redirect(url_for('tour_calendar'))
-    return render_template('tour_calendar.html')
-
-@app.route('/first_contact_info')
-@login_required
-def first_contact_info():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM first_contact_info')
-    first_contact_info = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('first_contact_info.html', first_contact_info=first_contact_info)
-
-@app.route('/add_first_contact_info', methods=['POST'])
-def add_first_contact_info():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
-
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO first_contact_info (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    return redirect(url_for('first_contact_info'))
-    return render_template('first_contact_info.html')
-
-@app.route('/enrollment_log')
-@login_required
-def enrollment_log():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM enrollment_log')
-    enrollment_log = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('enrollment_log.html', enrollment_log=enrollment_log)
-
-@app.route('/add_enrollment_log', methods=['POST'])
-def add_enrollment_log():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
-
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO  (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    return redirect(url_for('enrollment_log'))
-    return render_template('enrollment_log.html')
-
-@app.route('/invoicing')
-@login_required
-def invoicing():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM invoicing')
-    invoicing = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('invoicing.html', invoicing=invoicing)
-
-@app.route('/add_invcoicing', methods=['POST'])
-def add_add_invoicing():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
-
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO invoicing (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    return redirect(url_for('invoicing'))
-    return render_template('invoicing.html')
-
-@app.route('/daily_sheets')
-@login_required
-def daily_sheets():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM daily_sheets')
-    daily_sheets = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('daily_sheets.html', daily_sheets=daily_sheets)
-
-@app.route('/add_daily_sheets', methods=['POST'])
-def add_daily_sheets():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
-
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO daily_sheets (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    return redirect(url_for('daily_sheets'))
-    return render_template('daily_sheets.html')
-
-@app.route('/incident_reports')
-@login_required
-def incident_reports():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM incident_reports')
-    incident_reports = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('incident_reports.html', incident_reports=incident_reports)
-
-@app.route('/add_incident reports', methods=['POST'])
-def add_incident_reports():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
-
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO incident_reports (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    return redirect(url_for('incident_reports'))
-    return render_template('incident_reports.html')
-
-@app.route('/behavior_notes')
-@login_required
-def behavior_notes():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM classrooms')
-    behavior_notes = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('behavior_notes.html', behavior_notes=behavior_notes)
-
-@app.route('/add_behavior_notes', methods=['POST'])
-def add_incident_reports():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
-
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO incident_reports (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    return redirect(url_for('incident_reports'))
-    return render_template('incident_reports.html')
-
-
-@app.route('/medication_log')
-@login_required
-def medication_log():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM medication_log')
-    medication_log = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('medication_log.html', medication_log=medication_log)
-
-@app.route('/add_medication_log', methods=['POST'])
-def add_incident_reports():
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    birthdate = request.form['birthdate']
-    parent_id = request.form['parent_id']
-    classroom_id = request.form['classroom_id']
-
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    query = '''
-        INSERT INTO incident_reports (first_name, last_name, birthdate, parent_id, classroom_id)
-        VALUES (%s, %s, %s, %s, %s)
-    '''
-    cursor.execute(query, (first_name, last_name, birthdate, parent_id, classroom_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    return redirect(url_for('incident_reports'))
-    return render_template('incident_reports.html')
+@app.route('/dashboards/<filename>')
+def view_dashboard(filename):
+    # Serve the requested HTML file
+    filepath = os.path.join(DASHBOARDS_DIR, filename)
+    if os.path.exists(filepath):
+        with open(filepath, 'r') as file:
+            return file.read()
+    else:
+        flash(f'File "{filename}" not found.', 'error')
+        return redirect(url_for('dashboards'))
 
 if __name__ == '__main__':
     with app.app_context():
