@@ -10,6 +10,9 @@
     <nav>
         {% if current_user.is_authenticated %}
             <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('reports') }}">Reports</a>
+            <a href="{{ url_for('workflows') }}">Workflows</a>
+            <a href="{{ url_for('dashboards') }}">Dashboards</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('welcome') }}">Welcome</a>
