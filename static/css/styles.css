@@ -91,7 +91,7 @@
             font-weight: bold;
         }
 
-        .dashboard-container {
+        .home-container {
             text-align: center;
             padding: 20px;
         }
@@ -104,7 +104,7 @@
             margin: 0 auto;
         }
 
-        .dashboard-button {
+        .home-button {
             background-color: blue;
             color: white;
             padding: 20px;
@@ -115,15 +115,15 @@
             transition: background-color 0.3s ease;
         }
 
-        .dashboard-button:hover {
+        .home-button:hover {
             background-color: darkblue; 
         }
 
-        .dashboard-button.back {
+        .home-button.back {
             background-color: gray;
             margin-top: 20px;
         }
 
-        .dashboard-button.back:hover {
+        .home-button.back:hover {
             background-color: darkgray;
         }
