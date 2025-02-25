@@ -381,3 +381,17 @@
             background-color: #e8f5e9;
             color: #2e7d32;
         }
+
+        .reset-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .reset-button:hover {
+            background-color: #c82333;
+        }
