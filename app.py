@@ -115,7 +115,7 @@ def workflows():
             except Exception as err:
                 output = f"Error: {err}"
 
-    return render_template('terminal.html', command=command, output=output)
+    return render_template('workflows.html', command=command, output=output)
 
 DASHBOARDS_DIR = os.path.join(os.path.dirname(__file__), 'dashboards')
 os.makedirs(DASHBOARDS_DIR, exist_ok=True)  # Create directory if it doesn't exist
