@@ -95,7 +95,7 @@ def reports():
 
     return render_template('reports.html', query=query, results=results, columns=columns)
 
-@app.route('/terminal', methods=['GET', 'POST'])
+@app.route('/workflows', methods=['GET', 'POST'])
 def terminal():
     output = ""
     command = ""
@@ -132,14 +132,14 @@ def terminal():
 
     return render_template('workflows.html', command=command, output=output)
 
-@app.route('/terminal/reset', methods=['POST'])
+@app.route('/workflows/reset', methods=['POST'])
 def reset_terminal():
     # Reset the shell session
     if 'shell' in session:
         session['shell'].terminate()
         session.pop('shell')
     return redirect(url_for('terminal'))
-@app.route('/terminal/reset', methods=['POST'])
+@app.route('/workflows/reset', methods=['POST'])
 def reset_terminal():
     # Reset the shell session
     if 'shell' in session:
