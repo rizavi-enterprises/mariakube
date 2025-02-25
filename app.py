@@ -6,6 +6,7 @@ import mysql.connector
 import credentials
 import os
 import subprocess
+import uuid
 
 app = Flask(__name__)
 db_config = credentials.dbconf
