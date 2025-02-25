@@ -88,48 +88,89 @@ def reports():
 def workflows():
     output = ""
     command = ""
+
     if request.method == 'POST':
         command = request.form.get('command', '').strip()
+
         if command:
             try:
+                # Debug: Print the command
                 print(f"Executing command: {command}")
+
+                # Get or create a shell session for the user
                 if 'shell_id' not in session:
                     # Generate a unique session ID
                     session['shell_id'] = str(uuid.uuid4())
                     print(f"New shell session created with ID: {session['shell_id']}")
+
+                # Get the session ID
                 shell_id = session['shell_id']
+
+                # Get or create the shell process
                 if shell_id not in shell_sessions:
                     shell_sessions[shell_id] = subprocess.Popen(
-                        ['/bin/bash'],
+                        ['/bin/bash'],  # Use bash (or /bin/sh for a simpler shell)
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
                         text=True,
                         universal_newlines=True,
-                        bufsize=1
+                        bufsize=1  # Line-buffered output
                     )
                     print(f"New shell process created for session ID: {shell_id}")
+
+                # Get the shell process
                 shell = shell_sessions[shell_id]
+
+                # Send the command to the shell
                 shell.stdin.write(command + '\n')
                 shell.stdin.flush()
-                timeout = 5
-                try:
-                    stdout, stderr = shell.communicate(timeout=timeout)
-                    output = stdout
-                    if stderr:
-                        output += f"\nError: {stderr}"
-                except subprocess.TimeoutExpired:
-                    shell.terminate()
-                    output = "Command timed out."
-                except Exception as err:
-                    output = f"Error: {err}"
+
+                # Read the output and error
+                output_lines = []
+                error_lines = []
+
+                # Use select to wait for output with a timeout
+                timeout = 5  # Timeout in seconds
+                while True:
+                    # Check if there's data to read from stdout or stderr
+                    reads, _, _ = select.select([shell.stdout, shell.stderr], [], [], timeout)
+
+                    if not reads:
+                        # Timeout reached, break the loop
+                        break
+
+                    # Read from stdout
+                    if shell.stdout in reads:
+                        stdout_line = shell.stdout.readline()
+                        if stdout_line:
+                            output_lines.append(stdout_line)
+
+                    # Read from stderr
+                    if shell.stderr in reads:
+                        stderr_line = shell.stderr.readline()
+                        if stderr_line:
+                            error_lines.append(stderr_line)
+
+                # Combine the output and error
+                output = ''.join(output_lines)
+                error = ''.join(error_lines)
+
+                if error:
+                    output += f"\nError: {error}"
+
+                # Debug: Print the output
                 print(f"Command output: {output}")
+
             except Exception as err:
                 output = f"Error: {err}"
                 print(f"Error executing command: {err}")
+
     return render_template('workflows.html', command=command, output=output)
+
 @app.route('/workflows/reset', methods=['POST'])
 def reset_workflows():
+    # Reset the shell session
     if 'shell_id' in session:
         shell_id = session['shell_id']
         if shell_id in shell_sessions:
