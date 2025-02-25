@@ -1,1 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Workflows</h1>
 
+    <!-- Form to Input Terminal Command -->
+    <form method="POST">
+        <label for="command">Enter Terminal Command:</label>
+        <input type="text" id="command" name="command" value="{{ command }}" required>
+        <br>
+        <button type="submit">Run Command</button>
+    </form>
+
+    <!-- Display Terminal Output -->
+    {% if output %}
+        <h2>Command Output</h2>
+        <div class="terminal-output">
+            {{ output }}
+        </div>
+    {% endif %}
+</div>
+<a href="{{ url_for('home') }}" class="home-button">Back to Home</a>
+{% endblock %}
