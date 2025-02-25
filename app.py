@@ -139,13 +139,6 @@ def reset_terminal():
         session['shell'].terminate()
         session.pop('shell')
     return redirect(url_for('workflows'))
-@app.route('/workflows/reset', methods=['POST'])
-def reset_terminal():
-    # Reset the shell session
-    if 'shell' in session:
-        session['shell'].terminate()
-        session.pop('shell')
-    return redirect(url_for('workflow'))
 
 DASHBOARDS_DIR = os.path.join(os.path.dirname(__file__), 'dashboards')
 os.makedirs(DASHBOARDS_DIR, exist_ok=True)  # Create directory if it doesn't exist
