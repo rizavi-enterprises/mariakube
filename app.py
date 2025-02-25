@@ -96,7 +96,7 @@ def reports():
     return render_template('reports.html', query=query, results=results, columns=columns)
 
 @app.route('/workflows', methods=['GET', 'POST'])
-def terminal():
+def workflows():
     output = ""
     command = ""
 
@@ -138,14 +138,14 @@ def reset_terminal():
     if 'shell' in session:
         session['shell'].terminate()
         session.pop('shell')
-    return redirect(url_for('terminal'))
+    return redirect(url_for('workflows'))
 @app.route('/workflows/reset', methods=['POST'])
 def reset_terminal():
     # Reset the shell session
     if 'shell' in session:
         session['shell'].terminate()
         session.pop('shell')
-    return redirect(url_for('terminal'))
+    return redirect(url_for('workflow'))
 
 DASHBOARDS_DIR = os.path.join(os.path.dirname(__file__), 'dashboards')
 os.makedirs(DASHBOARDS_DIR, exist_ok=True)  # Create directory if it doesn't exist
