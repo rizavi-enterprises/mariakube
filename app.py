@@ -130,7 +130,6 @@ def workflows():
     return render_template('workflows.html', command=command, output=output)
 @app.route('/workflows/reset', methods=['POST'])
 def reset_workflows():
-    # Reset the shell session
     if 'shell_id' in session:
         shell_id = session['shell_id']
         if shell_id in shell_sessions:
