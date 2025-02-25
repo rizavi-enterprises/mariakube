@@ -1,6 +1,6 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user, session
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from models import db, User
 import mysql.connector
 import credentials
