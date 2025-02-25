@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="dashboard-container">
+<div class="home-container">
     <h1>MariaCare CRM</h1>
     <div class="button-grid">
-        <a href="{{ url_for('reports') }}" class="dashboard-button">Reports</a>
-        <a href="{{ url_for('workflows') }}" class="dashboard-button">Workflows</a>
-        <a href="{{ url_for('dashboards') }}" class="dashboard-button">Dashboards</a>
+        <a href="{{ url_for('reports') }}" class="home-button">Reports</a>
+        <a href="{{ url_for('workflows') }}" class="home-button">Workflows</a>
+        <a href="{{ url_for('dashboards') }}" class="home-button">Dashboards</a>
     </div>
   </div>
 {% endblock %}
