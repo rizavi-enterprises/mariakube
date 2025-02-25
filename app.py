@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user, session
 from models import db, User
 import mysql.connector
 import credentials
@@ -95,8 +95,8 @@ def reports():
 
     return render_template('reports.html', query=query, results=results, columns=columns)
 
-@app.route('/workflows', methods=['GET', 'POST'])
-def workflows():
+@app.route('/terminal', methods=['GET', 'POST'])
+def terminal():
     output = ""
     command = ""
 
@@ -132,6 +132,13 @@ def workflows():
 
     return render_template('workflows.html', command=command, output=output)
 
+@app.route('/terminal/reset', methods=['POST'])
+def reset_terminal():
+    # Reset the shell session
+    if 'shell' in session:
+        session['shell'].terminate()
+        session.pop('shell')
+    return redirect(url_for('terminal'))
 @app.route('/terminal/reset', methods=['POST'])
 def reset_terminal():
     # Reset the shell session
