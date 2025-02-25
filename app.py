@@ -21,6 +21,7 @@ shell_sessions = {}
 DASHBOARDS_DIR = os.path.join(os.path.dirname(__file__), 'dashboards')
 os.makedirs(DASHBOARDS_DIR, exist_ok=True)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -61,6 +62,7 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
 @app.route('/reports', methods=['GET', 'POST'])
 def reports():
     results = None
@@ -80,6 +82,7 @@ def reports():
             except mysql.connector.Error as err:
                 flash(f'Error executing query: {err}', 'error')
     return render_template('reports.html', query=query, results=results, columns=columns)
+
 
 @app.route('/workflows', methods=['GET', 'POST'])
 def workflows():
@@ -103,7 +106,7 @@ def workflows():
                         stderr=subprocess.PIPE,
                         text=True,
                         universal_newlines=True,
-                        bufsize=1  # Line-buffered output
+                        bufsize=1
                     )
                     print(f"New shell process created for session ID: {shell_id}")
                 shell = shell_sessions[shell_id]
@@ -136,6 +139,7 @@ def reset_workflows():
         session.pop('shell_id')
     return redirect(url_for('workflows'))
 
+
 @app.route('/dashboards', methods=['GET', 'POST'])
 def dashboards():
     if request.method == 'POST':
@@ -148,7 +152,6 @@ def dashboards():
             flash('Filename must end with .html.', 'error')
         else:
             try:
-                # Save the new HTML file
                 filepath = os.path.join(DASHBOARDS_DIR, filename)
                 with open(filepath, 'w') as file:
                     file.write(content)
@@ -159,7 +162,6 @@ def dashboards():
     return render_template('dashboards.html', files=files)
 @app.route('/dashboards/<filename>')
 def view_dashboard(filename):
-    # Serve the requested HTML file
     filepath = os.path.join(DASHBOARDS_DIR, filename)
     if os.path.exists(filepath):
         with open(filepath, 'r') as file:
@@ -167,6 +169,7 @@ def view_dashboard(filename):
     else:
         flash(f'File "{filename}" not found.', 'error')
         return redirect(url_for('dashboards'))
+
 
 if __name__ == '__main__':
     with app.app_context():
