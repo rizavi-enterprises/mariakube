@@ -105,18 +105,40 @@ def workflows():
 
         if command:
             try:
-                # Run the command in the terminal
-                result = subprocess.run(
-                    command,
-                    shell=True,
-                    capture_output=True,
-                    text=True
-                )
-                output = result.stdout or result.stderr
+                # Get or create a persistent shell session for the user
+                if 'shell' not in session:
+                    # Start a new shell session
+                    session['shell'] = subprocess.Popen(
+                        ['/bin/bash'],  # Use bash (or /bin/sh for a simpler shell)
+                        stdin=subprocess.PIPE,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        text=True,
+                        universal_newlines=True
+                    )
+
+                # Get the shell process
+                shell = session['shell']
+
+                # Send the command to the shell
+                shell.stdin.write(command + '\n')
+                shell.stdin.flush()
+
+                # Read the output
+                output = shell.stdout.read()
+
             except Exception as err:
                 output = f"Error: {err}"
 
     return render_template('workflows.html', command=command, output=output)
+
+@app.route('/terminal/reset', methods=['POST'])
+def reset_terminal():
+    # Reset the shell session
+    if 'shell' in session:
+        session['shell'].terminate()
+        session.pop('shell')
+    return redirect(url_for('terminal'))
 
 DASHBOARDS_DIR = os.path.join(os.path.dirname(__file__), 'dashboards')
 os.makedirs(DASHBOARDS_DIR, exist_ok=True)  # Create directory if it doesn't exist
