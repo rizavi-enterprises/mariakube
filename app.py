@@ -55,7 +55,7 @@ def signup():
 
 @app.route('/home')
 @login_required
-def dashboard():
+def home():
     return render_template('home.html', user=current_user)
 
 @app.route('/logout')
