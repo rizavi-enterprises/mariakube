@@ -95,6 +95,10 @@ def reports():
 
     return render_template('reports.html', query=query, results=results, columns=columns)
 
+
+# Global dictionary to store shell sessions
+shell_sessions = {}
+
 @app.route('/workflows', methods=['GET', 'POST'])
 def workflows():
     output = ""
@@ -105,10 +109,17 @@ def workflows():
 
         if command:
             try:
-                # Get or create a persistent shell session for the user
-                if 'shell' not in session:
-                    # Start a new shell session
-                    session['shell'] = subprocess.Popen(
+                # Get or create a shell session for the user
+                if 'shell_id' not in session:
+                    # Generate a unique session ID
+                    session['shell_id'] = str(uuid.uuid4())
+
+                # Get the session ID
+                shell_id = session['shell_id']
+
+                # Get or create the shell process
+                if shell_id not in shell_sessions:
+                    shell_sessions[shell_id] = subprocess.Popen(
                         ['/bin/bash'],  # Use bash (or /bin/sh for a simpler shell)
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -118,7 +129,7 @@ def workflows():
                     )
 
                 # Get the shell process
-                shell = session['shell']
+                shell = shell_sessions[shell_id]
 
                 # Send the command to the shell
                 shell.stdin.write(command + '\n')
@@ -135,9 +146,12 @@ def workflows():
 @app.route('/workflows/reset', methods=['POST'])
 def reset_terminal():
     # Reset the shell session
-    if 'shell' in session:
-        session['shell'].terminate()
-        session.pop('shell')
+    if 'shell_id' in session:
+        shell_id = session['shell_id']
+        if shell_id in shell_sessions:
+            shell_sessions[shell_id].terminate()
+            del shell_sessions[shell_id]
+        session.pop('shell_id')
     return redirect(url_for('workflows'))
 
 DASHBOARDS_DIR = os.path.join(os.path.dirname(__file__), 'dashboards')
