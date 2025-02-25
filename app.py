@@ -4,6 +4,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from models import db, User
 import mysql.connector
 import credentials
+import os
 
 app = Flask(__name__)
 db_config = credentials.dbconf
