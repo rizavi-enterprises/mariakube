@@ -132,7 +132,7 @@ def workflows():
                 error_lines = []
 
                 # Use select to wait for output with a timeout
-                timeout = 5  # Timeout in seconds
+                timeout = .1  # Timeout in seconds
                 while True:
                     # Check if there's data to read from stdout or stderr
                     reads, _, _ = select.select([shell.stdout, shell.stderr], [], [], timeout)
