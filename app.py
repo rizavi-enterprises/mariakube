@@ -61,7 +61,7 @@ def home():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('landing'))
 
 
 @app.route('/reports', methods=['GET', 'POST'])
