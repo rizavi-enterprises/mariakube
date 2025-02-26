@@ -85,6 +85,9 @@ def reports():
     return render_template('reports.html', query=query, results=results, columns=columns)
 
 
+# Global dictionary to store shell sessions
+shell_sessions = {}
+
 @app.route('/workflows', methods=['GET', 'POST'])
 def workflows():
     output = ""
@@ -115,8 +118,8 @@ def workflows():
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
                         text=True,
-                        #universal_newlines=True,
-                        #bufsize=1  # Line-buffered output
+                        universal_newlines=True,
+                        bufsize=1  # Line-buffered output
                     )
                     print(f"New shell process created for session ID: {shell_id}")
 
@@ -127,12 +130,12 @@ def workflows():
                 shell.stdin.write(command + '\n')
                 shell.stdin.flush()
 
-                # Read the output and error
+                # Read all output from stdout and stderr
                 output_lines = []
                 error_lines = []
 
                 # Use select to wait for output with a timeout
-                timeout = .1  # Timeout in seconds
+                timeout = 5  # Timeout in seconds
                 while True:
                     # Check if there's data to read from stdout or stderr
                     reads, _, _ = select.select([shell.stdout, shell.stderr], [], [], timeout)
