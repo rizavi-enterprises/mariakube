@@ -1,28 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <h1>Terminal</h1>
+    <h1>Workflows</h1>
 
-    <!-- Form to Input Terminal Command -->
+    <!-- Form to Input Command -->
     <form method="POST">
-        <label for="command">Enter Terminal Command:</label>
+        <label for="command">Enter Command:</label>
         <input type="text" id="command" name="command" value="{{ command }}" required>
         <br>
         <button type="submit">Run Command</button>
     </form>
 
-    <!-- Reset Terminal Button -->
+    <!-- Reset Workflows Button -->
     <form method="POST" action="{{ url_for('reset_workflows') }}" style="margin-top: 10px;">
-        <button type="submit" class="reset-button">Reset Terminal</button>
+        <button type="submit" class="reset-button">Reset Workflows</button>
     </form>
 
-    <!-- Display Terminal Output -->
+    <!-- Display Command Output -->
     {% if output %}
         <h2>Command Output</h2>
-        <div class="terminal-output">
-            {{ output }}
+        <div class="output">
+            <pre>{{ output }}</pre>
         </div>
     {% endif %}
+
+    <!-- Display Command Log -->
+    <h2>Command Log</h2>
+    <div class="command-log">
+        {% for entry in command_log %}
+            <div class="log-entry">
+                <strong>Command:</strong> {{ entry.command }}<br>
+                <strong>Output:</strong>
+                <pre>{{ entry.output }}</pre>
+            </div>
+        {% endfor %}
+    </div>
 </div>
-<a href="{{ url_for('home') }}" class="home-button">Back to Home</a>
+<a href="{{ url_for('dashboard') }}" class="dashboard-button">Back to Dashboard</a>
 {% endblock %}
