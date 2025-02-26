@@ -84,6 +84,7 @@ def reports():
                 flash(f'Error executing query: {err}', 'error')
     return render_template('reports.html', query=query, results=results, columns=columns)
 
+shell_sessions = {}
 
 @app.route('/workflows', methods=['GET', 'POST'])
 def workflows():
@@ -104,9 +105,10 @@ def workflows():
         if command:
             try:
                 # Get or create the shell process
-                if 'shell' not in session:
+                shell_id = session['shell_id']
+                if shell_id not in shell_sessions:
                     # Start a new shell process
-                    session['shell'] = subprocess.Popen(
+                    shell_sessions[shell_id] = subprocess.Popen(
                         ['/bin/bash'],  # Use bash (or /bin/sh for a simpler shell)
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -117,7 +119,7 @@ def workflows():
                     )
 
                 # Get the shell process
-                shell = session['shell']
+                shell = shell_sessions[shell_id]
 
                 # Send the command to the shell
                 shell.stdin.write(command + '\n')
@@ -170,9 +172,12 @@ def workflows():
 @app.route('/workflows/reset', methods=['POST'])
 def reset_workflows():
     # Reset the shell session and command log
-    if 'shell' in session:
-        session['shell'].terminate()
-        session.pop('shell')
+    if 'shell_id' in session:
+        shell_id = session['shell_id']
+        if shell_id in shell_sessions:
+            shell_sessions[shell_id].terminate()
+            del shell_sessions[shell_id]
+        session.pop('shell_id')
     session.pop('command_log', None)
     return redirect(url_for('workflows'))
 
