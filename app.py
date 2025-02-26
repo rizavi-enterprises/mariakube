@@ -123,9 +123,35 @@ def workflows():
                 shell.stdin.write(command + '\n')
                 shell.stdin.flush()
 
-                # Read the output and error
-                output = shell.stdout.readline()
-                error = shell.stderr.readline()
+                # Read all output from stdout and stderr
+                output_lines = []
+                error_lines = []
+
+                # Use select to wait for output with a timeout
+                timeout = 5  # Timeout in seconds
+                while True:
+                    # Check if there's data to read from stdout or stderr
+                    reads, _, _ = select.select([shell.stdout, shell.stderr], [], [], timeout)
+
+                    if not reads:
+                        # Timeout reached, break the loop
+                        break
+
+                    # Read from stdout
+                    if shell.stdout in reads:
+                        stdout_line = shell.stdout.readline()
+                        if stdout_line:
+                            output_lines.append(stdout_line)
+
+                    # Read from stderr
+                    if shell.stderr in reads:
+                        stderr_line = shell.stderr.readline()
+                        if stderr_line:
+                            error_lines.append(stderr_line)
+
+                # Combine the output and error
+                output = ''.join(output_lines)
+                error = ''.join(error_lines)
 
                 if error:
                     output += f"\nError: {error}"
@@ -149,6 +175,8 @@ def reset_workflows():
         session.pop('shell')
     session.pop('command_log', None)
     return redirect(url_for('workflows'))
+
+
 @app.route('/dashboards', methods=['GET', 'POST'])
 def dashboards():
     if request.method == 'POST':
