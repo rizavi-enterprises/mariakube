@@ -17,7 +17,7 @@
         {% else %}
             <a href="{{ url_for('landing') }}">Landing</a>
             <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('signup') }}">Sign Up</a>
+
         {% endif %}
     </nav>
     {% with messages = get_flashed_messages(with_categories=true) %}
