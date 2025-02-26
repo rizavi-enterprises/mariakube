@@ -115,8 +115,8 @@ def workflows():
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
                         text=True,
-                        universal_newlines=True,
-                        bufsize=1  # Line-buffered output
+                        #universal_newlines=True,
+                        #bufsize=1  # Line-buffered output
                     )
                     print(f"New shell process created for session ID: {shell_id}")
 
