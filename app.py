@@ -91,6 +91,10 @@ def workflows():
     if 'command_log' not in session:
         session['command_log'] = []
 
+    if 'shell_id' not in session:
+        # Generate a unique session ID for the shell process
+        session['shell_id'] = str(uuid.uuid4())
+
     output = ""
     command = ""
 
@@ -99,18 +103,32 @@ def workflows():
 
         if command:
             try:
-                # Execute the command
-                result = subprocess.run(
-                    command,
-                    shell=True,
-                    capture_output=True,
-                    text=True
-                )
+                # Get or create the shell process
+                if 'shell' not in session:
+                    # Start a new shell process
+                    session['shell'] = subprocess.Popen(
+                        ['/bin/bash'],  # Use bash (or /bin/sh for a simpler shell)
+                        stdin=subprocess.PIPE,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        text=True,
+                        universal_newlines=True,
+                        bufsize=1  # Line-buffered output
+                    )
 
-                # Get the output and error
-                output = result.stdout
-                if result.stderr:
-                    output += f"\nError: {result.stderr}"
+                # Get the shell process
+                shell = session['shell']
+
+                # Send the command to the shell
+                shell.stdin.write(command + '\n')
+                shell.stdin.flush()
+
+                # Read the output and error
+                output = shell.stdout.readline()
+                error = shell.stderr.readline()
+
+                if error:
+                    output += f"\nError: {error}"
 
                 # Log the command and output
                 session['command_log'].append({
@@ -125,10 +143,12 @@ def workflows():
 
 @app.route('/workflows/reset', methods=['POST'])
 def reset_workflows():
-    # Reset the command log
+    # Reset the shell session and command log
+    if 'shell' in session:
+        session['shell'].terminate()
+        session.pop('shell')
     session.pop('command_log', None)
     return redirect(url_for('workflows'))
-
 @app.route('/dashboards', methods=['GET', 'POST'])
 def dashboards():
     if request.method == 'POST':
