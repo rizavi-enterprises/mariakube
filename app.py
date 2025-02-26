@@ -41,18 +41,20 @@ def login():
         else:
             flash('Invalid username or password', 'danger')
     return render_template('login.html')
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        user = User(username=username, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash('Account created successfully! Please log in.', 'success')
-        return redirect(url_for('login'))
-    return render_template('signup.html')
+    
+#@app.route('/signup', methods=['GET', 'POST'])
+#def signup():
+    #if request.method == 'POST':
+        #username = request.form.get('username')
+        #password = request.form.get('password')
+        #hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        #user = User(username=username, password=hashed_password)
+        #db.session.add(user)
+        #db.session.commit()
+        #flash('Account created successfully! Please log in.', 'success')
+        #return redirect(url_for('login'))
+    #return render_template('signup.html')
+
 @app.route('/home')
 @login_required
 def home():
