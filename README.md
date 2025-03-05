@@ -1,5 +1,4 @@
-MariaKube
-Have No Fear! No Vendor Lock Over Here!
+MariaKube... Have No Fear! No Vendor Lock Over Here!
 
 ![Screenshot 2025-03-05 132505](https://github.com/user-attachments/assets/3535a08a-6503-4caa-a13c-0fd8d65e89bd)
 
