@@ -14,9 +14,7 @@ MariaKube is a distro of K3s (https://k3s.io/) for lightweight Kubernetes, Maria
 1. [Overview](#overview)
 2. [Setup Instructions](#setup-instructions)
 3. [Your First MariaKube App](#your-first-mariakube-app)
-4. [Using MariaKube](#using-mariakube)
-5. [Contributing](#contributing)
-6. [License](#license)
+
 
 ## Overview 
 
