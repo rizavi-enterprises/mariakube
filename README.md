@@ -135,7 +135,7 @@ A MariaKube app is a k3s pod that interacts with MariaDB. Here’s how to create
 
 Update app.py to connect to MariaDB:
 
-
+```
 from flask import Flask
 import mysql.connector
 
@@ -166,6 +166,8 @@ def hello():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+```
+
 Rebuild and Redeploy:
 Rebuild the Docker image and redeploy the app:
 
