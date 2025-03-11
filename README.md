@@ -1,4 +1,5 @@
-#MariaKube: K3s and MariaDB for deploying your business apps, with KubeSphere for easy monitoring.
+# MariaKube
+## K3s and MariaDB for deploying your business apps, with KubeSphere for easy monitoring.
 Have No Fear! No Vendor Lock Over Here!
 
 ![Screenshot 2025-03-05 132505](https://github.com/user-attachments/assets/3535a08a-6503-4caa-a13c-0fd8d65e89bd)
@@ -20,7 +21,7 @@ MariaDB for a scalable database
 https://mariadb.org/
 
 
-#📋 Table of Contents
+# 📋 Table of Contents
 Overview
 
 Prerequisites
@@ -58,7 +59,7 @@ Flask App: A simple Python web application.
 
 By following this guide, you'll learn how to deploy these components and even create your first "MariaKube" app—a Flask app that interacts with MariaDB.
 
-#✅ Prerequisites
+# ✅ Prerequisites
 Before you begin, ensure you have the following:
 
 A Linux VM (e.g., on Google Cloud, AWS, or locally).
@@ -71,10 +72,9 @@ A container registry account (e.g., Docker Hub) for hosting the Flask app image.
 
 Basic familiarity with Kubernetes and YAML files.
 
-#📂 Repository Structure
-Here’s what you’ll find in this repository:
+# 📂 Repository Structure
 
-Copy
+
 .
 ├── k3s/                          # Instructions for setting up k3s
 ├── kubesphere/                   # KubeSphere installer YAML files
@@ -88,15 +88,17 @@ Copy
 │   └── requirements.txt
 ├── kubernetes/                   # Kubernetes manifests for the Flask app
 │   └── flask-app-deployment.yaml
-└── README.md                     # This guide
-🛠️ Setup Instructions
+└── README.md                     
+
+
+# 🛠️ Setup Instructions
 Step 1: Set Up k3s
 SSH into your VM.
 
 #Install k3s using the following command:
 
 bash
-Copy
+
 curl -sfL https://get.k3s.io | sh -
 Verify the installation:
 
@@ -200,15 +202,15 @@ kubectl apply -f kubernetes/flask-app-deployment.yaml
 Access the App:
 Visit http://<VM-IP>:30000 to see your MariaKube app in action!
 
-🔗 Accessing the Applications
+# 🔗 Accessing the Applications
 KubeSphere: http://<VM-IP>:30880
 
 Flask App: http://<VM-IP>:30000
 
 MariaDB: Accessible within the cluster at mariadb:3306.
 
-#🤝 Contributing
+# 🤝 Contributing
 Contributions are welcome! If you have suggestions or improvements, please open an issue or submit a pull request.
 
-#📜 License
+# 📜 License
 This project is licensed under the MIT License. See the LICENSE file for details.
