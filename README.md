@@ -1,6 +1,7 @@
-# MariaKube
-## K3s and MariaDB for deploying your business apps, with KubeSphere for easy monitoring.
-#### Have No Fear! No Vendor Lock Over Here!
+**MariaKube**
+
+K3s and MariaDB for deploying your business apps, with KubeSphere for easy monitoring.
+Have No Fear! No Vendor Lock Over Here!
 
 ![Screenshot 2025-03-05 132505](https://github.com/user-attachments/assets/3535a08a-6503-4caa-a13c-0fd8d65e89bd)
 
@@ -8,7 +9,7 @@ MariaKube is a distro of K3s (https://k3s.io/) for lightweight Kubernetes, Maria
 
 MariaKube can be used as a launch point for all of your customized business apps (marketing, invoicing, operations, and more). 
 
-## 📋 Table of Contents
+**📋 Table of Contents**
 1. [Overview](#overview)
 2. [Prerequisites](#prerequisites)
 4. [Repository Structure](#repository-structure)
@@ -55,9 +56,9 @@ Docker installed and a container registry account (e.g., Docker Hub) for hosting
 └── README.md                     
 ```
 
-## 🛠️ Setup Instructions
+## Setup Instructions
 
-### Step 1: Set Up k3s
+### Step 1: Run k3s
 
 SSH into your VM, and install k3s using the following command:
 
@@ -73,7 +74,7 @@ sudo kubectl get nodes
 
 You should see your VM listed as a node.
 
-### Step 2: Deploy KubeSphere
+### Step 2: Run KubeSphere
 
 Apply the KubeSphere installer YAML files:
 
@@ -94,7 +95,7 @@ Username: admin
 Password: P@88w0rd
 
 
-### Step 3: Deploy MariaDB
+### Step 3: Run MariaDB
 
 Apply the MariaDB deployment YAML:
 
@@ -108,7 +109,7 @@ Verify the deployment:
 kubectl get pods -l app=mariadb
 ```
 
-### Step 4: Deploy the Flask App
+### Step 4: Run the Flask App
 
 Build the Flask app Docker image:
 
@@ -168,14 +169,14 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 ```
 
-Rebuild and Redeploy:
+
 Rebuild the Docker image and redeploy the app:
 
-
-``docker build -t your-dockerhub-username/flask-app:latest ./flask-app ``
-``docker push your-dockerhub-username/flask-app:latest``
-``kubectl apply -f kubernetes/flask-app-deployment.yaml``
-
+```
+docker build -t your-dockerhub-username/flask-app:latest ./flask-app
+docker push your-dockerhub-username/flask-app:latest
+kubectl apply -f kubernetes/flask-app-deployment.yaml
+```
 
 Visit http://EXTERNAL.IP.GOES.HERE:30000 to see your MariaKube app!
 
@@ -183,7 +184,6 @@ Visit http://EXTERNAL.IP.GOES.HERE:30000 to see your MariaKube app!
 ## Using MariaKube
 
 KubeSphere: http://EXTERNAL.IP.GOES.HERE:30880
-
 MariaKube App: http://EXTERNAL.IP.GOES.HERE:30000
 MariaDB: Accessible within the cluster at mariadb:3306.
 
