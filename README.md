@@ -183,7 +183,7 @@ Visit http://EXTERNAL.IP.GOES.HERE:30000 to see your MariaKube app!
 
 ## 🔗 Accessing the Applications
 
-KubeSphere: http://EXTERNAL.IP.GOES.HERE:30880
+KubeSphere: http://EXTERNAL IP GOES HERE:30880
 Flask App: http://EXTERNAL.IP.GOES.HERE:30000
 MariaDB: Accessible within the cluster at mariadb:3306.
 
