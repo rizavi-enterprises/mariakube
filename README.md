@@ -99,7 +99,8 @@ SSH into your VM.
 
 bash
 
-curl -sfL https://get.k3s.io | sh -
+``curl -sfL https://get.k3s.io | sh -
+
 Verify the installation:
 
 bash
