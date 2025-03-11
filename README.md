@@ -22,29 +22,14 @@ https://mariadb.org/
 
 
 ## 📋 Table of Contents
-Overview
-
-Prerequisites
-
-Repository Structure
-
-#Setup Instructions
-
-Step 1: Set Up k3s
-
-Step 2: Deploy KubeSphere
-
-Step 3: Deploy MariaDB
-
-Step 4: Deploy the Flask App
-
-Creating Your First MariaKube App
-
-Accessing the Applications
-
-Contributing
-
-License
+1. [Overview](#overview)
+2. [Prerequisites](#prerequisites)
+3. [Setup Instructions](#setup-instructions)
+4. [Repository Structure](#repository)
+5. [Creating Your First MariaKube App](#firstapp)
+6. [Accessing the Applications](#accessing)
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ## 🌐 Overview
 This repository provides a complete setup for running:
