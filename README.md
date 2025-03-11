@@ -8,9 +8,6 @@ MariaKube is a distro of K3s (https://k3s.io/) for lightweight Kubernetes, Maria
 
 MariaKube can be used as a launch point for all of your customized business apps (marketing, invoicing, operations, and more). 
 
-
-
-
 ## 📋 Table of Contents
 1. [Overview](#overview)
 2. [Prerequisites](#prerequisites)
@@ -20,7 +17,6 @@ MariaKube can be used as a launch point for all of your customized business apps
 7. [Accessing the Applications](#using-mariakube)
 8. [Contributing](#contributing)
 9. [License](#license)
-
 
 ## Overview 
 
@@ -38,7 +34,6 @@ By following this guide, you'll learn how to deploy these components and even cr
 A Linux VM 
 At least 2 vCPUs and 4 GB of RAM for smooth operation
 Docker installed and a container registry account (e.g., Docker Hub) for hosting the Flask app image.
-
 
 ## Repository Structure
 
@@ -66,11 +61,15 @@ Docker installed and a container registry account (e.g., Docker Hub) for hosting
 
 SSH into your VM, and install k3s using the following command:
 
-``curl -sfL https://get.k3s.io | sh - ``
+```
+curl -sfL https://get.k3s.io | sh - 
+```
 
 Verify the installation:
 
-``sudo kubectl get nodes``
+```
+sudo kubectl get nodes
+```
 
 You should see your VM listed as a node.
 
@@ -78,45 +77,57 @@ You should see your VM listed as a node.
 
 Apply the KubeSphere installer YAML files:
 
-``kubectl apply -f kubesphere/kubesphere-installer.yaml``
-``kubectl apply -f kubesphere/cluster-configuration.yaml``
+```
+kubectl apply -f kubesphere/kubesphere-installer.yaml
+kubectl apply -f kubesphere/cluster-configuration.yaml
+```
 
 Monitor the installation progress:
 
-``kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f ``
+```
+kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f 
+```
 
 Once installed, access KubeSphere at http://<VM-IP>:30880:
 
 Username: admin
 Password: P@88w0rd
 
+
 ### Step 3: Deploy MariaDB
 
 Apply the MariaDB deployment YAML:
 
-``kubectl apply -f mariadb/mariadb-deployment.yaml``
+```
+kubectl apply -f mariadb/mariadb-deployment.yaml
+```
 
 Verify the deployment:
 
-``kubectl get pods -l app=mariadb``
+```
+kubectl get pods -l app=mariadb
+```
 
 ### Step 4: Deploy the Flask App
 
 Build the Flask app Docker image:
 
-
-``docker build -t your-dockerhub-username/flask-app:latest ./flask-app
-``docker push your-dockerhub-username/flask-app:latest``
+```
+docker build -t your-dockerhub-username/flask-app:latest ./flask-app
+docker push your-dockerhub-username/flask-app:latest
+```
 
 Deploy the Flask app using the provided YAML:
 
-
-``kubectl apply -f kubernetes/flask-app-deployment.yaml``
+```
+kubectl apply -f kubernetes/flask-app-deployment.yaml
+```
 
 Verify the deployment:
 
-``kubectl get pods -l app=flask-app``
-
+```
+kubectl get pods -l app=flask-app
+```
 
 ## Your First MariaKube App
 
@@ -171,7 +182,7 @@ Visit http://EXTERNAL.IP.GOES.HERE:30000 to see your MariaKube app!
 
 ## Using MariaKube
 
-KubeSphere: http://EXTERNAL IP GOES HERE:30880
+KubeSphere: http://EXTERNAL.IP.GOES.HERE:30880
 
 MariaKube App: http://EXTERNAL.IP.GOES.HERE:30000
 MariaDB: Accessible within the cluster at mariadb:3306.
