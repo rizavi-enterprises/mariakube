@@ -60,20 +60,14 @@ Flask App: A simple Python web application.
 By following this guide, you'll learn how to deploy these components and even create your first "MariaKube" app—a Flask app that interacts with MariaDB.
 
 ## ✅ Prerequisites
-Before you begin, ensure you have the following:
 
-A Linux VM (e.g., on Google Cloud, AWS, or locally).
+A Linux VM 
+At least 2 vCPUs and 4 GB of RAM for smooth operation
+Docker installed and a container registry account (e.g., Docker Hub) for hosting the Flask app image.
 
-At least 2 vCPUs and 4 GB of RAM (recommended for smooth operation).
 
-Docker installed (for building the Flask app).
-
-A container registry account (e.g., Docker Hub) for hosting the Flask app image.
-
-Basic familiarity with Kubernetes and YAML files.
 
 ## 📂 Repository Structure
-
 
 .
 ├── k3s/                          # Instructions for setting up k3s
@@ -92,38 +86,33 @@ Basic familiarity with Kubernetes and YAML files.
 
 
 ## 🛠️ Setup Instructions
-Step 1: Set Up k3s
-SSH into your VM.
 
-#Install k3s using the following command:
+###Step 1: Set Up k3s
 
-bash
+SSH into your VM, and install k3s using the following command:
 
 ``curl -sfL https://get.k3s.io | sh - ``
 
 Verify the installation:
 
-bash
-Copy
-sudo kubectl get nodes
+``sudo kubectl get nodes``
+
 You should see your VM listed as a node.
 
-Step 2: Deploy KubeSphere
+### Step 2: Deploy KubeSphere
+
 Apply the KubeSphere installer YAML files:
 
-bash
-Copy
-kubectl apply -f kubesphere/kubesphere-installer.yaml
-kubectl apply -f kubesphere/cluster-configuration.yaml
+``kubectl apply -f kubesphere/kubesphere-installer.yaml``
+``kubectl apply -f kubesphere/cluster-configuration.yaml``
+
 Monitor the installation progress:
 
-bash
-Copy
-kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
+``kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f ``
+
 Once installed, access KubeSphere at http://<VM-IP>:30880:
 
 Username: admin
-
 Password: P@88w0rd
 
 Step 3: Deploy MariaDB
