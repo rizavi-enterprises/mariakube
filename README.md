@@ -14,8 +14,8 @@ MariaKube can be used as a launch point for all of your customized business apps
 2. [Prerequisites](#prerequisites)
 4. [Repository Structure](#repository-structure)
 5. [Setup Instructions](#setup-instructions)
-6. [Creating Your First MariaKube App](#your-first-mariakube-app)
-7. [Accessing the Applications](#using-mariakube)
+6. [Your First MariaKube App](#your-first-mariakube-app)
+7. [Using MariaKube](#using-mariakube)
 8. [Contributing](#contributing)
 9. [License](#license)
 
