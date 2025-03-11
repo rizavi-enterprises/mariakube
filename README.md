@@ -52,7 +52,8 @@ Docker installed and a container registry account (e.g., Docker Hub) for hosting
 
 ```
 .
-├── k3s/                          
+├── k3s/
+│   ├── README.md                    
 ├── kubesphere/                   
 │   ├── kubesphere-installer.yaml
 │   └── cluster-configuration.yaml
