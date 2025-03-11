@@ -12,13 +12,11 @@ MariaKube is a distro of K3s (https://k3s.io/) for lightweight Kubernetes, Maria
 
 **Table of Contents**
 1. [Overview](#overview)
-2. [Prerequisites](#prerequisites)
-4. [Repository Structure](#repository-structure)
-5. [Setup Instructions](#setup-instructions)
-6. [Your First MariaKube App](#your-first-mariakube-app)
-7. [Using MariaKube](#using-mariakube)
-8. [Contributing](#contributing)
-9. [License](#license)
+2. [Setup Instructions](#setup-instructions)
+3. [Your First MariaKube App](#your-first-mariakube-app)
+4. [Using MariaKube](#using-mariakube)
+5. [Contributing](#contributing)
+6. [License](#license)
 
 ## Overview 
 
@@ -31,13 +29,13 @@ Flask App: A simple Python web application.
 
 By following this guide, you'll learn how to deploy these components and even create your first "MariaKube" app—a Flask app that interacts with MariaDB.
 
-## Prerequisites
+### Prerequisites
 
 A Linux VM 
 At least 2 vCPUs and 4 GB of RAM for smooth operation
 Docker installed and a container registry account (e.g., Docker Hub) for hosting the Flask app image.
 
-## Repository Structure
+### Repository Structure
 
 ```
 .
