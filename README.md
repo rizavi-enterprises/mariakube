@@ -47,7 +47,6 @@ At least 2 vCPUs and 4 GB of RAM for smooth operation
 Docker installed and a container registry account (e.g., Docker Hub) for hosting the Flask app image.
 
 
-
 ## Repository Structure
 
 ```
@@ -99,16 +98,17 @@ Username: admin
 Password: P@88w0rd
 
 ### Step 3: Deploy MariaDB
+
 Apply the MariaDB deployment YAML:
 
 ``kubectl apply -f mariadb/mariadb-deployment.yaml``
 
 Verify the deployment:
 
+``kubectl get pods -l app=mariadb``
 
+### Step 4: Deploy the Flask App
 
-kubectl get pods -l app=mariadb
-Step 4: Deploy the Flask App
 Build the Flask app Docker image:
 
 
