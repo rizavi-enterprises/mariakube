@@ -21,7 +21,7 @@ MariaDB for a scalable database
 https://mariadb.org/
 
 
-# 📋 Table of Contents
+## 📋 Table of Contents
 Overview
 
 Prerequisites
@@ -46,7 +46,7 @@ Contributing
 
 License
 
-🌐 Overview
+## 🌐 Overview
 This repository provides a complete setup for running:
 
 k3s: A lightweight Kubernetes distribution.
@@ -59,7 +59,7 @@ Flask App: A simple Python web application.
 
 By following this guide, you'll learn how to deploy these components and even create your first "MariaKube" app—a Flask app that interacts with MariaDB.
 
-# ✅ Prerequisites
+## ✅ Prerequisites
 Before you begin, ensure you have the following:
 
 A Linux VM (e.g., on Google Cloud, AWS, or locally).
@@ -72,7 +72,7 @@ A container registry account (e.g., Docker Hub) for hosting the Flask app image.
 
 Basic familiarity with Kubernetes and YAML files.
 
-# 📂 Repository Structure
+## 📂 Repository Structure
 
 
 .
@@ -91,7 +91,7 @@ Basic familiarity with Kubernetes and YAML files.
 └── README.md                     
 
 
-# 🛠️ Setup Instructions
+## 🛠️ Setup Instructions
 Step 1: Set Up k3s
 SSH into your VM.
 
@@ -202,15 +202,15 @@ kubectl apply -f kubernetes/flask-app-deployment.yaml
 Access the App:
 Visit http://<VM-IP>:30000 to see your MariaKube app in action!
 
-# 🔗 Accessing the Applications
+## 🔗 Accessing the Applications
 KubeSphere: http://<VM-IP>:30880
 
 Flask App: http://<VM-IP>:30000
 
 MariaDB: Accessible within the cluster at mariadb:3306.
 
-# 🤝 Contributing
+## 🤝 Contributing
 Contributions are welcome! If you have suggestions or improvements, please open an issue or submit a pull request.
 
-# 📜 License
+## 📜 License
 This project is licensed under the MIT License. See the LICENSE file for details.
