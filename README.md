@@ -55,6 +55,16 @@ Docker installed and a container registry account (e.g., Docker Hub) for hosting
 └── README.md                     
 ```
 
+**Contributing**
+
+Contributions are welcome! If you have suggestions or improvements, please open an issue or submit a pull request.
+
+
+**License**
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+
 ## Setup Instructions
 
 **Step 1: Run k3s**
@@ -180,7 +190,7 @@ kubectl apply -f kubernetes/flask-app-deployment.yaml
 Visit http://EXTERNAL.IP.GOES.HERE:30000 to see your MariaKube app!
 
 
-## Using MariaKube
+**Using MariaKube**
 
 KubeSphere: http://EXTERNAL.IP.GOES.HERE:30880
 
@@ -189,11 +199,4 @@ MariaKube App: http://EXTERNAL.IP.GOES.HERE:30000
 MariaDB: Accessible within the cluster at mariadb:3306.
 
 
-## Contributing
 
-Contributions are welcome! If you have suggestions or improvements, please open an issue or submit a pull request.
-
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
