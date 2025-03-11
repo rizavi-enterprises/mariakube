@@ -52,17 +52,17 @@ Docker installed and a container registry account (e.g., Docker Hub) for hosting
 
 ```
 .
-├── k3s/                          # Instructions for setting up k3s
-├── kubesphere/                   # KubeSphere installer YAML files
+├── k3s/                          
+├── kubesphere/                   
 │   ├── kubesphere-installer.yaml
 │   └── cluster-configuration.yaml
-├── mariadb/                      # MariaDB deployment YAML
+├── mariadb/                      
 │   └── mariadb-deployment.yaml
-├── flask-app/                    # Flask app source code and Dockerfile
+├── flask-app/                    
 │   ├── app.py
 │   ├── Dockerfile
 │   └── requirements.txt
-├── kubernetes/                   # Kubernetes manifests for the Flask app
+├── kubernetes/                   
 │   └── flask-app-deployment.yaml
 └── README.md                     
 ```
