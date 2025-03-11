@@ -1,4 +1,4 @@
-MariaKube: K3s and MariaDB for deploying your business apps, with KubeSphere for easy monitoring.
+#MariaKube: K3s and MariaDB for deploying your business apps, with KubeSphere for easy monitoring.
 Have No Fear! No Vendor Lock Over Here!
 
 ![Screenshot 2025-03-05 132505](https://github.com/user-attachments/assets/3535a08a-6503-4caa-a13c-0fd8d65e89bd)
@@ -20,17 +20,14 @@ MariaDB for a scalable database
 https://mariadb.org/
 
 
-🚀 KubeSphere on k3s with MariaDB and a Flask App
-Welcome to this repository! This project demonstrates how to deploy KubeSphere on a lightweight Kubernetes distribution called k3s, alongside MariaDB and a simple Flask app. Whether you're new to Kubernetes or looking to experiment with KubeSphere, this guide will walk you through the setup and deployment process.
-
-📋 Table of Contents
+#📋 Table of Contents
 Overview
 
 Prerequisites
 
 Repository Structure
 
-Setup Instructions
+#Setup Instructions
 
 Step 1: Set Up k3s
 
@@ -61,7 +58,7 @@ Flask App: A simple Python web application.
 
 By following this guide, you'll learn how to deploy these components and even create your first "MariaKube" app—a Flask app that interacts with MariaDB.
 
-✅ Prerequisites
+#✅ Prerequisites
 Before you begin, ensure you have the following:
 
 A Linux VM (e.g., on Google Cloud, AWS, or locally).
@@ -74,7 +71,7 @@ A container registry account (e.g., Docker Hub) for hosting the Flask app image.
 
 Basic familiarity with Kubernetes and YAML files.
 
-📂 Repository Structure
+#📂 Repository Structure
 Here’s what you’ll find in this repository:
 
 Copy
@@ -96,7 +93,7 @@ Copy
 Step 1: Set Up k3s
 SSH into your VM.
 
-Install k3s using the following command:
+#Install k3s using the following command:
 
 bash
 Copy
@@ -210,12 +207,8 @@ Flask App: http://<VM-IP>:30000
 
 MariaDB: Accessible within the cluster at mariadb:3306.
 
-🤝 Contributing
+#🤝 Contributing
 Contributions are welcome! If you have suggestions or improvements, please open an issue or submit a pull request.
 
-📜 License
+#📜 License
 This project is licensed under the MIT License. See the LICENSE file for details.
-
-Enjoy experimenting with KubeSphere, k3s, MariaDB, and Flask! If you have any questions, feel free to reach out. 🚀
-
-This version of the README.md is clean, visually appealing, and easy to follow. It uses emojis, headers, and code blocks to make the instructions engaging and user-friendly. Let me know if you'd like further tweaks! 😊
