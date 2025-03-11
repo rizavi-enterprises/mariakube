@@ -128,9 +128,9 @@ Password: P@88w0rd
 Step 3: Deploy MariaDB
 Apply the MariaDB deployment YAML:
 
-bash
-Copy
-kubectl apply -f mariadb/mariadb-deployment.yaml
+''' bash
+
+'kubectl apply -f mariadb/mariadb-deployment.yaml'
 Verify the deployment:
 
 bash
