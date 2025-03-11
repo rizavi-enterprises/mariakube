@@ -24,16 +24,16 @@ https://mariadb.org/
 ## 📋 Table of Contents
 1. [Overview](#overview)
 2. [Prerequisites](#prerequisites)
-3. [Setup Instructions](#setup-instructions)
-4. [Repository Structure](#repository)
-5. [Creating Your First MariaKube App](#firstapp)
-6. [Accessing the Applications](#accessing)
-7. [Contributing](#contributing)
-8. [License](#license)
+4. [Repository Structure](#repository-structure)
+5. [Setup Instructions](#setup-instructions)
+6. [Creating Your First MariaKube App](#your-first-mariakube-app)
+7. [Accessing the Applications](#using-mariakube)
+8. [Contributing](#contributing)
+9. [License](#license)
 
 
 
-## 🌐 Overview 
+## Overview 
 This repository provides a complete setup for running:
 
 k3s: A lightweight Kubernetes distribution.
@@ -46,7 +46,7 @@ Flask App: A simple Python web application.
 
 By following this guide, you'll learn how to deploy these components and even create your first "MariaKube" app—a Flask app that interacts with MariaDB.
 
-## ✅ Prerequisites
+## Prerequisites
 
 A Linux VM 
 At least 2 vCPUs and 4 GB of RAM for smooth operation
@@ -54,7 +54,7 @@ Docker installed and a container registry account (e.g., Docker Hub) for hosting
 
 
 
-## 📂 Repository Structure
+## Repository Structure
 
 .
 ├── k3s/                          # Instructions for setting up k3s
@@ -129,7 +129,7 @@ Verify the deployment:
 ``kubectl get pods -l app=flask-app``
 
 
-## 🌟 Creating Your First MariaKube App
+## Your First MariaKube App
 
 A MariaKube app is a k3s pod that interacts with MariaDB. Here’s how to create one:
 
@@ -177,22 +177,22 @@ Rebuild the Docker image and redeploy the app:
 ``kubectl apply -f kubernetes/flask-app-deployment.yaml``
 
 
-### Access the App:
 Visit http://EXTERNAL.IP.GOES.HERE:30000 to see your MariaKube app!
 
 
-## 🔗 Accessing the Applications
+## Using MariaKube
 
 KubeSphere: http://EXTERNAL IP GOES HERE:30880
-Flask App: http://EXTERNAL.IP.GOES.HERE:30000
+
+MariaKube App: http://EXTERNAL.IP.GOES.HERE:30000
 MariaDB: Accessible within the cluster at mariadb:3306.
 
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! If you have suggestions or improvements, please open an issue or submit a pull request.
 
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
