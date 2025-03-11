@@ -118,39 +118,37 @@ Password: P@88w0rd
 ### Step 3: Deploy MariaDB
 Apply the MariaDB deployment YAML:
 
-
 ``kubectl apply -f mariadb/mariadb-deployment.yaml``
 
 Verify the deployment:
 
-bash
-Copy
+
+
 kubectl get pods -l app=mariadb
 Step 4: Deploy the Flask App
 Build the Flask app Docker image:
 
 
 ``docker build -t your-dockerhub-username/flask-app:latest ./flask-app
-docker push your-dockerhub-username/flask-app:latest``
+``docker push your-dockerhub-username/flask-app:latest``
 
 Deploy the Flask app using the provided YAML:
 
-bash
-Copy
-kubectl apply -f kubernetes/flask-app-deployment.yaml
+
+``kubectl apply -f kubernetes/flask-app-deployment.yaml``
+
 Verify the deployment:
 
-bash
-Copy
-kubectl get pods -l app=flask-app
-🌟 Creating Your First MariaKube App
-A "MariaKube" app is simply a Flask app that interacts with MariaDB. Here’s how to create one:
+``kubectl get pods -l app=flask-app``
 
-Modify the Flask App:
+
+## 🌟 Creating Your First MariaKube App
+
+A MariaKube app is a k3s pod that interacts with MariaDB. Here’s how to create one:
+
 Update app.py to connect to MariaDB:
 
-python
-Copy
+
 from flask import Flask
 import mysql.connector
 
@@ -184,23 +182,28 @@ if __name__ == '__main__':
 Rebuild and Redeploy:
 Rebuild the Docker image and redeploy the app:
 
-bash
-Copy
-docker build -t your-dockerhub-username/flask-app:latest ./flask-app
-docker push your-dockerhub-username/flask-app:latest
-kubectl apply -f kubernetes/flask-app-deployment.yaml
-Access the App:
-Visit http://<VM-IP>:30000 to see your MariaKube app in action!
+
+``docker build -t your-dockerhub-username/flask-app:latest ./flask-app ``
+``docker push your-dockerhub-username/flask-app:latest``
+``kubectl apply -f kubernetes/flask-app-deployment.yaml``
+
+
+### Access the App:
+Visit http://EXTERNAL.IP.GOES.HERE:30000 to see your MariaKube app!
+
 
 ## 🔗 Accessing the Applications
-KubeSphere: http://<VM-IP>:30880
 
-Flask App: http://<VM-IP>:30000
-
+KubeSphere: http://EXTERNAL.IP.GOES.HERE:30880
+Flask App: http://EXTERNAL.IP.GOES.HERE:30000
 MariaDB: Accessible within the cluster at mariadb:3306.
 
+
 ## 🤝 Contributing
+
 Contributions are welcome! If you have suggestions or improvements, please open an issue or submit a pull request.
 
+
 ## 📜 License
+
 This project is licensed under the MIT License. See the LICENSE file for details.
