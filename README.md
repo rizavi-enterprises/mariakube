@@ -4,11 +4,8 @@
 
 ![Screenshot 2025-03-05 132505](https://github.com/user-attachments/assets/3535a08a-6503-4caa-a13c-0fd8d65e89bd)
 
-
 MariaKube is a distro of K3s Kubernetes, MariaDB, and KubeSphere. MariaKube launches business apps as K3s Kubernetes pods, and stores persistent data in a MariaDB instance, all with KubeSphere for monitoring. 
-
 As a Kubernetes pod itself, MariaKube is a self-contained Flask app, and is used as a launch point for all of your customized business apps (marketing, invoicing, operations). 
-
 This way all business use cases, from a "Schedule a Tour" app, to replacing an existing Enterprise CRM, can be launched and managed from the same place, by business admins.
 
 K3s for lightweight Kubernetes
@@ -32,16 +29,13 @@ https://mariadb.org/
 9. [License](#license)
 
 
-
 ## Overview 
+
 This repository provides a complete setup for running:
 
 k3s: A lightweight Kubernetes distribution.
-
 KubeSphere: A powerful Kubernetes management platform.
-
 MariaDB: A popular open-source relational database.
-
 Flask App: A simple Python web application.
 
 By following this guide, you'll learn how to deploy these components and even create your first "MariaKube" app—a Flask app that interacts with MariaDB.
@@ -56,6 +50,7 @@ Docker installed and a container registry account (e.g., Docker Hub) for hosting
 
 ## Repository Structure
 
+```
 .
 ├── k3s/                          # Instructions for setting up k3s
 ├── kubesphere/                   # KubeSphere installer YAML files
@@ -70,7 +65,7 @@ Docker installed and a container registry account (e.g., Docker Hub) for hosting
 ├── kubernetes/                   # Kubernetes manifests for the Flask app
 │   └── flask-app-deployment.yaml
 └── README.md                     
-
+```
 
 ## 🛠️ Setup Instructions
 
