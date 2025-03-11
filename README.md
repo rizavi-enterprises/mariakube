@@ -184,7 +184,9 @@ Visit http://EXTERNAL.IP.GOES.HERE:30000 to see your MariaKube app!
 ## Using MariaKube
 
 KubeSphere: http://EXTERNAL.IP.GOES.HERE:30880
+
 MariaKube App: http://EXTERNAL.IP.GOES.HERE:30000
+
 MariaDB: Accessible within the cluster at mariadb:3306.
 
 
