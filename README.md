@@ -29,13 +29,13 @@ Flask App: A simple Python web application.
 
 By following this guide, you'll learn how to deploy these components and even create your first "MariaKube" app—a Flask app that interacts with MariaDB.
 
-### Prerequisites
+**Prerequisites**
 
 A Linux VM 
 At least 2 vCPUs and 4 GB of RAM for smooth operation
 Docker installed and a container registry account (e.g., Docker Hub) for hosting the Flask app image.
 
-### Repository Structure
+**Repository Structure**
 
 ```
 .
@@ -57,7 +57,7 @@ Docker installed and a container registry account (e.g., Docker Hub) for hosting
 
 ## Setup Instructions
 
-### Step 1: Run k3s
+**Step 1: Run k3s**
 
 SSH into your VM, and install k3s using the following command:
 
@@ -73,7 +73,7 @@ sudo kubectl get nodes
 
 You should see your VM listed as a node.
 
-### Step 2: Run KubeSphere
+**Step 2: Run KubeSphere**
 
 Apply the KubeSphere installer YAML files:
 
@@ -94,7 +94,7 @@ Username: admin
 Password: P@88w0rd
 
 
-### Step 3: Run MariaDB
+**Step 3: Run MariaDB**
 
 Apply the MariaDB deployment YAML:
 
@@ -108,7 +108,7 @@ Verify the deployment:
 kubectl get pods -l app=mariadb
 ```
 
-### Step 4: Run the Flask App
+**Step 4: Run the Flask App**
 
 Build the Flask app Docker image:
 
