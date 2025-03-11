@@ -115,7 +115,7 @@ Once installed, access KubeSphere at http://<VM-IP>:30880:
 Username: admin
 Password: P@88w0rd
 
-Step 3: Deploy MariaDB
+### Step 3: Deploy MariaDB
 Apply the MariaDB deployment YAML:
 
 
@@ -129,10 +129,10 @@ kubectl get pods -l app=mariadb
 Step 4: Deploy the Flask App
 Build the Flask app Docker image:
 
-bash
-Copy
-docker build -t your-dockerhub-username/flask-app:latest ./flask-app
-docker push your-dockerhub-username/flask-app:latest
+
+``docker build -t your-dockerhub-username/flask-app:latest ./flask-app
+docker push your-dockerhub-username/flask-app:latest``
+
 Deploy the Flask app using the provided YAML:
 
 bash
