@@ -3,8 +3,6 @@
 
 **MariaKube**
 
-K3s and MariaDB for deploying your business apps, with KubeSphere for easy monitoring.
-
 Have No Fear! No Vendor Lock Over Here!
 
 MariaKube is a distro of K3s (https://k3s.io/) for lightweight Kubernetes, MariaDB (https://mariadb.org/) for a scalable database, and KubeSphere (https://kubesphere.io/) for monitoring.
