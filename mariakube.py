@@ -1,7 +1,7 @@
 # MariaKube can be deployed by:
-# 1. Cloning the full Mariakube github repo, and running the commands listed in the README file. 
+# 1. Cloning the Mariakube GitHub repo, and running the commands in the README file. 
 # OR
-# 2. You can run this script.
+# 2. Running this script.
 
 import os
 import subprocess
