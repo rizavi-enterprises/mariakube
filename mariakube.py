@@ -1,4 +1,4 @@
-# MariaKube can be deployed by:
+# Deploy MariaKube by:
 # 1. Cloning the Mariakube GitHub repo, and running the commands in the README file. 
 # OR
 # 2. Running this script.
