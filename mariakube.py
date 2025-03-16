@@ -1,5 +1,5 @@
 # To deploy MariaKube:
-# 1. Clone the full Mariakube GitHub repo, run all the commands in the README file. 
+# 1. Clone the full Mariakube GitHub repo, and run all the commands in the README file. 
 # OR
 # 2. Run this script (as the sudo user).
 
