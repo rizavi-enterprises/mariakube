@@ -1,18 +1,18 @@
 
-![Screenshot 2025-03-05 132505](https://github.com/user-attachments/assets/3535a08a-6503-4caa-a13c-0fd8d65e89bd)
+<img width="500" height="500" alt="MariaKube" src="https://github.com/user-attachments/assets/d23cdbdb-cba7-481f-8064-be1a4cf334f5" />
+
 
 **MariaKube**
+Website Hosting Platform
 
 Have No Fear! No Vendor Lock Over Here!
 
-MariaKube is a distro of K3s (https://k3s.io/) for lightweight Kubernetes, MariaDB (https://mariadb.org/) for a scalable database, and KubeSphere (https://kubesphere.io/) for monitoring.
-
+MariaKube is a distro of K3s (https://k3s.io/) for lightweight Kubernetes, MariaDB (https://mariadb.org/) for a scalable database, and PHP (https://kubesphere.io/) for web development.
 
 **Table of Contents**
 1. [Overview](#overview)
 2. [Setup Instructions](#setup-instructions)
 3. [Your First MariaKube App](#your-first-mariakube-app)
-
 
 ## Overview 
 
@@ -79,28 +79,8 @@ sudo kubectl get nodes
 
 You should see your VM listed as a node.
 
-**Step 2: Run KubeSphere**
 
-Apply the KubeSphere installer YAML files:
-
-```
-kubectl apply -f kubesphere/kubesphere-installer.yaml
-kubectl apply -f kubesphere/cluster-configuration.yaml
-```
-
-Monitor the installation progress:
-
-```
-kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f 
-```
-
-Once installed, access KubeSphere at http://<VM-IP>:30880:
-
-Username: admin
-Password: P@88w0rd
-
-
-**Step 3: Run MariaDB**
+**Step 2: Run MariaDB**
 
 Apply the MariaDB deployment YAML:
 
